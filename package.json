@@ -1,5 +1,5 @@
 {
-  "name": "animal",
+  "name": "shuryo-choju-wakarukana",
   "private": true,
   "version": "0.0.0",
   "scripts": {
@@ -9,9 +9,13 @@
   },
   "dependencies": {
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "react-query": "^3.34.14",
+    "react-router": "^6.2.1"
   },
   "devDependencies": {
+    "jest": "^27.5.1",
+    "ts-jest": "^27.1.3",
     "@types/react": "^17.0.33",
     "@types/react-dom": "^17.0.10",
     "@vitejs/plugin-react": "^1.0.7",
