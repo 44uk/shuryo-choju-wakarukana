@@ -1,5 +1,14 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+
+import {
+  Box,
+  Grid,
+  Typography,
+  Button,
+} from '@mui/material'
+import { Done, Clear } from '@mui/icons-material'
+
 import {
     PictureContainer
 } from '../../containers'
@@ -34,30 +43,49 @@ export function Exam() {
     nextOrFinish()
   }
 
-  const pic = useMemo(() => { return (
-    <PictureContainer
-      timeout={3}
-      reveal={false}
-      src={data.src}
-      name={data.name}
-      huntable={data.huntable}
-      onChangeReveal={v => setReveal(v)}
-    />
-  )}, [data.src])
-
   useEffect(() => {
     clear()
   }, [])
 
   return (
-    <div>
-      <h1>Exam { index + 1 }</h1>
-      { pic }
+    <Box sx={{
+      marginTop: 8,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    }} >
+      <Typography component="h1" variant="h5">
+        問 { index + 1 }
+      </Typography>
+
+      <PictureContainer
+        timeout={3}
+        reveal={false}
+        src={data.src}
+        name={data.name}
+        huntable={data.huntable}
+        onChangeReveal={v => setReveal(v)}
+      />
+
       { reveal && <>
-        <button onClick={correct}>せいかい？</button>
-        <button onClick={incorrect}>まちがい？</button>
+        <Grid container>
+          <Grid item xs>
+            <Button type="button" onClick={correct}
+              color="success"
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            ><Done /></Button>
+          </Grid>
+          <Grid item>
+            <Button type="button" onClick={incorrect}
+              color="error"
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            ><Clear /></Button>
+          </Grid>
+        </Grid>
       </>}
-    </div>
+    </Box>
   )
 }
 

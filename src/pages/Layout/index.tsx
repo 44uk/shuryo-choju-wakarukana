@@ -1,12 +1,12 @@
 import { Outlet } from 'react-router-dom'
+import Container from '@mui/material/Container'
 
 export function Layout() {
-    return (
-        <div>
-            <h1>Layout</h1>
-            <Outlet />
-        </div>
-    )
+  return (
+    <Container component="main" maxWidth="xs">
+      <Outlet />
+    </Container>
+  )
 }
 
 export default Layout

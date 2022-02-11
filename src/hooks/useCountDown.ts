@@ -1,35 +1,38 @@
 import { useState } from 'react'
 
 export function useCountDown(seconds: number, onFinish: () => void) {
-    const [ left, setLeft ] = useState(seconds)
-    const [ handler, setHandler ] = useState<NodeJS.Timeout>()
+  const [ left, setLeft ] = useState(seconds)
+  const [ handler, setHandler ] = useState<NodeJS.Timeout | undefined>(undefined)
 
-    function tick() {
-        setLeft(current => {
-            const value = current - 1
-            if(value <= 0) {
-                stop()
-                onFinish()
-                return current
-            }
-            return value
-        })
-    }
-
-    function start() {
+  function tick() {
+    setLeft(current => {
+      const value = current - 1
+      if(value <= 0) {
         stop()
-        setHandler(setInterval(() => tick(), 1000))
-    }
+        onFinish()
+      }
+      return value
+    })
+  }
 
-    function stop() {
-        if(handler) { clearInterval(handler) }
-    }
+  function start() {
+    stop()
+    const intervalHandler = setInterval(() => tick(), 1000)
+    setHandler(intervalHandler)
+  }
 
-    function restart() {
-        stop()
-        setLeft(seconds)
-        start()
+  function stop() {
+    console.debug({ handler })
+    if(handler) {
+      clearInterval(handler)
     }
+  }
 
-    return { start, stop, restart, left }
+  function restart() {
+    stop()
+    setLeft(seconds)
+    start()
+  }
+
+  return { start, stop, restart, left }
 }

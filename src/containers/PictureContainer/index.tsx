@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+
 import { Picture } from '../../components'
 import { useCountDown } from '../../hooks'
 
@@ -12,31 +13,31 @@ interface Props {
 }
 
 export function PictureContainer({ src, name, huntable, ...props }: Props) {
-    const [ reveal, setReveal ] = useState(props.reveal)
-    const { restart, stop, left } = useCountDown(props.timeout, () => {
-        setReveal(true)
-    })
+  const [ reveal, setReveal ] = useState(props.reveal)
+  const { restart, stop, left } = useCountDown(props.timeout, () => {
+    setReveal(true)
+  })
 
-    useEffect(() => {
-        props.onChangeReveal(reveal)
-    }, [reveal])
+  useEffect(() => {
+    props.onChangeReveal(reveal)
+  }, [reveal])
 
-    useEffect(() => {
-        setReveal(false)
-        restart()
-        return () => stop()
-    }, [src])
+  useEffect(() => {
+    setReveal(false)
+    restart()
+    return () => stop()
+  }, [src])
 
-    return (
-    <div onClick={() => left <= 0 && setReveal(true)}>
-        <span>{ left }</span>
-        <Picture
-            src={src}
-            name={name}
-            huntable={huntable}
-            reveal={reveal}
-        />
-    </div>
+  return (
+  <div onClick={() => left <= 0 && setReveal(true)}>
+    <Picture
+      src={src}
+      name={name}
+      huntable={huntable}
+      reveal={reveal}
+      count={left}
+    />
+  </div>
     )
 }
 
