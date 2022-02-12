@@ -1,2 +1,2 @@
 export * from './AnswerProvider'
-export * from './useCountDown'
+export * from './useTimer'

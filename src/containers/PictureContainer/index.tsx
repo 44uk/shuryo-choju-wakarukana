@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import { Picture } from '../../components'
-import { useCountDown } from '../../hooks'
+import { useTimer } from '../../hooks'
 
 interface Props {
     src: string
@@ -14,7 +14,7 @@ interface Props {
 
 export function PictureContainer({ src, name, huntable, ...props }: Props) {
   const [ reveal, setReveal ] = useState(props.reveal)
-  const { restart, stop, left } = useCountDown(props.timeout, () => {
+  const { restart, stop, left } = useTimer(props.timeout, () => {
     setReveal(true)
   })
 

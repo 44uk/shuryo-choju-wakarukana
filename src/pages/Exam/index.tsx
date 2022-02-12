@@ -17,12 +17,32 @@ import { useAnswer } from '../../hooks/AnswerProvider'
 
 import DATA from '../../resources/data'
 
+interface DataQuery {
+  cat?: number
+  huntable?: boolean
+}
+
+function useData(query?: DataQuery) {
+  let data = DATA
+  if(query?.huntable) {
+    data = data.filter(d => d.huntable === query?.huntable)
+  }
+  if(query?.cat) {
+    data = data.filter(d => d.cat === query?.cat)
+  }
+  return {
+    data,
+    length: data.length,
+  }
+}
+
 export function Exam() {
   const [ reveal, setReveal ] = useState(false)
   const [ index, setIndex ] = useState(0)
   const navigate = useNavigate()
   const { add, clear, list } = useAnswer()
 
+  const { data: DATA } = useData()
   const data = DATA[index]
 
   function nextOrFinish() {
