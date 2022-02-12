@@ -14,27 +14,7 @@ import {
 } from '../../containers'
 
 import { useAnswer } from '../../hooks/AnswerProvider'
-
-import DATA from '../../resources/data'
-
-interface DataQuery {
-  cat?: number
-  huntable?: boolean
-}
-
-function useData(query?: DataQuery) {
-  let data = DATA
-  if(query?.huntable) {
-    data = data.filter(d => d.huntable === query?.huntable)
-  }
-  if(query?.cat) {
-    data = data.filter(d => d.cat === query?.cat)
-  }
-  return {
-    data,
-    length: data.length,
-  }
-}
+import { useDataList } from '../../hooks/useDataList'
 
 export function Exam() {
   const [ reveal, setReveal ] = useState(false)
@@ -42,7 +22,7 @@ export function Exam() {
   const navigate = useNavigate()
   const { add, clear, list } = useAnswer()
 
-  const { data: DATA } = useData()
+  const { data: DATA } = useDataList()
   const data = DATA[index]
 
   function nextOrFinish() {
