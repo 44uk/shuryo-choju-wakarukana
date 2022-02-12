@@ -1,11 +1,11 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import {
+  Button,
   Box,
   Grid,
   Typography,
-  Button,
 } from '@mui/material'
 import { Done, Clear } from '@mui/icons-material'
 
@@ -18,6 +18,7 @@ import { useDataList } from '../../hooks/useDataList'
 
 export function Exam() {
   const navigate = useNavigate()
+  const [ left, setLeft ] = useState(0)
   const [ index, setIndex ] = useState(0)
   const [ reveal, setReveal ] = useState(false)
   const { add, clear, list } = useAnswer()
@@ -49,12 +50,14 @@ export function Exam() {
 
   return (
     <Box sx={{
-      marginTop: 8,
+      mt: 4,
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
     }} >
-      <Typography component="h1" variant="h5">
+      <Typography component="h1" variant="h5"
+        sx={{ mb: 2 }}
+      >
         問 { index + 1 }
       </Typography>
 
@@ -65,26 +68,40 @@ export function Exam() {
         name={data.name}
         huntable={data.huntable}
         onChangeReveal={v => setReveal(v)}
+        onTick={v => setLeft(v)}
       />
 
-      { reveal && <>
-        <Grid container>
-          <Grid item xs>
-            <Button type="button" onClick={correct}
-              color="success"
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            ><Done /></Button>
-          </Grid>
-          <Grid item>
-            <Button type="button" onClick={incorrect}
-              color="error"
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            ><Clear /></Button>
-          </Grid>
+      <Grid container spacing={2}
+        sx={{ mt: 2 }}
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Grid item xs sx={{ textAlign: 'left' }}>
+          { reveal &&
+          <Button type="button" onClick={incorrect}
+            color="error"
+            variant="contained"
+            size="large"
+            startIcon={<Clear />}
+          >誤答</Button>
+          }
         </Grid>
-      </>}
+        <Grid item xs={2} sx={{ textAlign: 'center' }}>
+          <Typography variant="h4" component="div">
+            { ! reveal && left }
+          </Typography>
+        </Grid>
+        <Grid item xs sx={{ textAlign: 'right' }}>
+          { reveal &&
+          <Button type="button" onClick={correct}
+            color="success"
+            variant="contained"
+            size="large"
+            endIcon={<Done />}
+          >正解</Button>
+          }
+        </Grid>
+      </Grid>
     </Box>
   )
 }

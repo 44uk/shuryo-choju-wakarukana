@@ -10,6 +10,7 @@ interface Props {
   timeout: number
   reveal: boolean
   onChangeReveal: (v: boolean) => void
+  onTick: (s: number) => void
 }
 
 export function PictureContainer({ src, name, huntable, ...props }: Props) {
@@ -23,6 +24,7 @@ export function PictureContainer({ src, name, huntable, ...props }: Props) {
   }, [reveal])
 
   useEffect(() => {
+    props.onTick(left)
     left <= 0 && stop()
   }, [left])
 
@@ -39,7 +41,6 @@ export function PictureContainer({ src, name, huntable, ...props }: Props) {
       name={name}
       huntable={huntable}
       reveal={reveal}
-      count={left}
     />
   </div>
     )
