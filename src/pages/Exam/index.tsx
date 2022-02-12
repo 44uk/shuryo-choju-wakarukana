@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import {
@@ -17,9 +17,9 @@ import { useAnswer } from '../../hooks/AnswerProvider'
 import { useDataList } from '../../hooks/useDataList'
 
 export function Exam() {
-  const [ reveal, setReveal ] = useState(false)
-  const [ index, setIndex ] = useState(0)
   const navigate = useNavigate()
+  const [ index, setIndex ] = useState(0)
+  const [ reveal, setReveal ] = useState(false)
   const { add, clear, list } = useAnswer()
 
   const { data: DATA } = useDataList()

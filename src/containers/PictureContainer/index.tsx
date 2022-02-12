@@ -4,23 +4,27 @@ import { Picture } from '../../components'
 import { useTimer } from '../../hooks'
 
 interface Props {
-    src: string
-    name: string
-    huntable: boolean
-    timeout: number
-    reveal: boolean
-    onChangeReveal: (v: boolean) => void
+  src: string
+  name: string
+  huntable: boolean
+  timeout: number
+  reveal: boolean
+  onChangeReveal: (v: boolean) => void
 }
 
 export function PictureContainer({ src, name, huntable, ...props }: Props) {
   const [ reveal, setReveal ] = useState(props.reveal)
-  const { restart, stop, left } = useTimer(props.timeout, () => {
+  const { left, start, restart, stop } = useTimer(props.timeout, () => {
     setReveal(true)
   })
 
   useEffect(() => {
     props.onChangeReveal(reveal)
   }, [reveal])
+
+  useEffect(() => {
+    left <= 0 && stop()
+  }, [left])
 
   useEffect(() => {
     setReveal(false)
