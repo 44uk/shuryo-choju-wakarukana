@@ -23,21 +23,21 @@ export function Start() {
         狩猟鳥獣わかるかな？
       </Typography>
 
-      <Link to="exam">
-        <Button type="button"
-          fullWidth
-          variant="contained"
-          sx={{ mt: 3, mb: 2 }}
-        >制限時間なし</Button>
-      </Link>
+      <Button type="button"
+        to="exam"
+        component={Link}
+        fullWidth
+        variant="contained"
+        sx={{ mt: 3, mb: 2 }}
+      >制限時間なし</Button>
 
-      <Link to="exam">
-        <Button type="button"
-          fullWidth
-          variant="contained"
-          sx={{ mt: 3, mb: 2 }}
-        >制限時間あり</Button>
-      </Link>
+      <Button type="button"
+        to="exam"
+        component={Link}
+        fullWidth
+        variant="contained"
+        sx={{ mt: 3, mb: 2 }}
+      >制限時間あり</Button>
     </Box>
   )
 }
